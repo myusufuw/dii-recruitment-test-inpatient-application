@@ -22,7 +22,7 @@ const Sidebar = () => {
       <Image
         src='/nuha-logo.svg'
         width={150}
-        height={40}
+        height={20}
         priority={true}
         alt='nuha-logo'
         className='object-cover mb-6 self-center'
