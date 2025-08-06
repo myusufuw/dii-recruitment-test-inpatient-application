@@ -3,6 +3,7 @@
 import Sidebar from '@/components/sidebar'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -14,6 +15,8 @@ const geistMono = Geist_Mono({
   subsets: ['latin']
 })
 
+const queryClient = new QueryClient()
+
 export default function RootLayout({
   children
 }: Readonly<{
@@ -24,10 +27,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-row h-screen overflow-hidden`}
       >
-        <Sidebar />
-        <div className='w-full h-screen flex flex-col p-6 overflow-auto bg-zinc-50'>
-          {children}
-        </div>
+        <QueryClientProvider client={queryClient}>
+          <Sidebar />
+          <div className='w-full h-screen flex flex-col p-6 overflow-auto bg-zinc-50'>
+            {children}
+          </div>
+        </QueryClientProvider>
       </body>
     </html>
   )
