@@ -3,6 +3,7 @@ import { useLocalStorage } from './use-local-storage'
 import { toast } from 'sonner'
 import { AddNewPatientType } from '@/schemas/patient'
 import { useRouter } from 'next/navigation'
+import { patientListDummy } from '@/lib/dummy'
 
 export function usePatient() {
   const queryClient = useQueryClient()
@@ -32,5 +33,25 @@ export function usePatient() {
     }
   })
 
-  return { patientList: patientListQuery.data || [], addNewPatient }
+  const seedingPatient = useMutation({
+    mutationFn: async () => {
+      setPatientlist(patientListDummy)
+
+      return patientList
+    },
+    onSuccess: () => {
+      queryClient.setQueryData(['dii-inpatient-app-product-list'], patientList)
+      toast.success('Berhasil melakukan seeding data pasien')
+      router.push('/')
+    },
+    onError: () => {
+      toast.error('Gagal melakukan seeding data pasien')
+    }
+  })
+
+  return {
+    patientList: patientListQuery.data || [],
+    addNewPatient,
+    seedingPatient
+  }
 }
