@@ -4,6 +4,7 @@ import Sidebar from '@/components/sidebar'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { Toaster } from 'sonner'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -31,6 +32,7 @@ export default function RootLayout({
           <Sidebar />
           <div className='w-full h-screen flex flex-col p-6 overflow-auto bg-zinc-50'>
             {children}
+            <Toaster richColors position='top-center' />
           </div>
         </QueryClientProvider>
       </body>
