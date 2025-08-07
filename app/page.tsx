@@ -6,6 +6,7 @@ import { usePatient } from '@/hooks/use-patient'
 import { AddNewPatientType } from '@/schemas/patient'
 import { ColumnDef } from '@tanstack/react-table'
 import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react'
+import moment from 'moment'
 import { useEffect, useState } from 'react'
 
 const columns: ColumnDef<AddNewPatientType>[] = [
@@ -55,7 +56,8 @@ const columns: ColumnDef<AddNewPatientType>[] = [
           )}
         </Button>
       )
-    }
+    },
+    cell: ({ row }) => moment(row.original.date).format('DD MMMM YYYY')
   },
   {
     accessorKey: 'doctor',
